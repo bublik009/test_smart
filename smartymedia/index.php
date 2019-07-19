@@ -96,7 +96,7 @@ $( "#apply" ).click(function() {
     data: {data: reqCollection},
     success: function(data){
 
-      console.log(data);
+      console.log(JSON.parse(data));
     }
   });
 
