@@ -68,13 +68,12 @@ $( "#apply" ).click(function() {
   var setCount = $(".param-set-class").length;
   for(i = 1; i <= setCount; i++)
   {
-    reqCollection.push({param: $("#param_"+i).val(), operator: $("#operator_"+i).val(), value: $("#value_"+i).val()});
+    reqCollection.push($("#param_"+i).val() + ':' + ($("#operator_"+i).val() == '=' ? '' : $("#operator_"+i).val()) + $("#value_"+i).val());
   }
     $.ajax({
     url: 'http://127.0.0.1/api.php',
-    type: "GET",
-    dataType: 'json',
-    data: reqCollection,
+    type: "post",
+    data: {data: reqCollection},
     success: function(data){
       console.log(data);
     }
