@@ -45,7 +45,7 @@
    </div>
    <div class="form-group">
 
-     <button type="button" style="position: relative;" class="btn btn-danger" id="delete_1" onclick = "
+     <button type="button" style="position: relative; margin-top: 25px;" class="btn btn-danger" id="delete_1" onclick = "
 
      $('#param-set_'+this.id.replace(/.*\_/, '')).remove();
 
