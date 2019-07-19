@@ -7,12 +7,26 @@ if(!empty($_POST))
   }
 
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "https://api.github.com/search/repositories?".rtrim($uri_params_str, "+"));
+  curl_setopt($ch, CURLOPT_URL, "https://api.github.com/search/repositories?".rtrim($uri_params_str, "+")."&sort=size&order=asc");
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'bublik009');
-  echo curl_exec($ch);
+  $responseArr = json_decode(curl_exec($ch), true);
+  $dataStack = [];
+  $counter = 0;
+  foreach ($responseArr['items'] as $item) {
+    $dataStack[] = ['name' => $item['name'],
+                    'size' => $item['size'],
+                    'forks' => $item['forks'],
+                    'watchers' => $item['watchers'],
+                    'stars' => $item['score']];
+    $counter++;
+    if($counter == 0){
+      break;
+    }
+  }
 
+  echo json_encode($dataStack);
   curl_close($ch);
 
 }
